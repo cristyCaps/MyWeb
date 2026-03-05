@@ -1,0 +1,219 @@
+---
+import Layout from "./layouts/layout.astro";
+---
+
+<Layout title="Interview">
+  <main class="min-h-screen bg-gradient-to-br from-sky-100 via-sky-200 to-sky-300 flex items-center justify-center relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-10 left-10 w-32 h-32 bg-sky-300 rounded-full opacity-20 blur-xl"></div>
+    <div class="absolute bottom-10 right-10 w-48 h-48 bg-sky-400 rounded-full opacity-20 blur-xl"></div>
+    <div class="absolute top-1/3 right-20 w-24 h-24 bg-sky-200 rounded-full opacity-30 blur-lg"></div>
+    
+    <!-- Interview Modal -->
+    <div class="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-20 max-w-6xl mx-4 text-center relative z-10 border border-blue-200">
+      <!-- Decorative top accent -->
+      <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"></div>
+      
+      <!-- Initial typing animation -->
+      <div id="introSection" class="text-center">
+        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent mb-12 tracking-tight">
+          Interview
+        </h1>
+        
+        <!-- Typing animation container -->
+        <div class="text-2xl text-gray-700 font-light leading-relaxed min-h-[200px] flex items-center justify-center">
+          <p id="typingText" class="text-left max-w-3xl"></p>
+          <span id="cursor" class="text-blue-600 font-bold animate-pulse ml-1">|</span>
+        </div>
+        
+        <!-- Start button (hidden initially) -->
+        <div id="startButton" class="hidden mt-12">
+          <button 
+            onclick="showQuestion()" 
+            class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold text-xl py-4 px-10 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            Start Interview
+          </button>
+        </div>
+      </div>
+      
+      <!-- Question section (hidden initially) -->
+      <div id="questionSection" class="hidden">
+        <h1 class="text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent mb-16 tracking-tight">
+          Who is more handsome?
+        </h1>
+        
+        <!-- Two cards -->
+        <div class="flex gap-12 justify-center items-center">
+          <!-- Gab card -->
+          <div 
+            onclick="selectGab()" 
+            class="bg-white rounded-2xl shadow-xl p-8 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-blue-200"
+          >
+            <div class="w-48 h-48 mx-auto mb-6 rounded-lg overflow-hidden">
+              <img src="/gb.jpg" alt="Gab" class="w-full h-full object-cover" />
+            </div>
+            <h3 class="text-2xl font-bold text-blue-600">Gab</h3>
+          </div>
+          
+          <!-- Csai card -->
+          <div 
+            onclick="selectCsai()" 
+            class="bg-white rounded-2xl shadow-xl p-8 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-blue-200"
+          >
+            <div class="w-48 h-48 mx-auto mb-6 rounded-lg overflow-hidden">
+              <img src="/cs.jpg" alt="Csai" class="w-full h-full object-cover" />
+            </div>
+            <h3 class="text-2xl font-bold text-blue-600">Csai</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Error Modal (hidden initially) -->
+    <div id="errorModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center transform transition-all">
+        <div class="text-6xl mb-4">⚠️</div>
+        <h2 class="text-2xl font-bold text-red-600 mb-4">System Error</h2>
+        <p class="text-gray-700 text-lg mb-6">Please choose the other one</p>
+        <button 
+          onclick="closeErrorModal()" 
+          class="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+        >
+          Got it
+        </button>
+      </div>
+    </div>
+    
+    <!-- Congratulations Celebration (hidden initially) -->
+    <div id="celebration" class="hidden fixed inset-0 bg-gradient-to-br from-sky-200 via-sky-300 to-blue-400 flex items-center justify-center z-50">
+      <div class="text-center">
+        <!-- Animated poppers -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="confetti-piece absolute w-3 h-3 bg-blue-400" style="top: -10%; left: 20%; animation-delay: 0s;"></div>
+          <div class="confetti-piece absolute w-4 h-4 bg-blue-500" style="top: -10%; left: 80%; animation-delay: 0.2s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-blue-600" style="top: -10%; left: 10%; animation-delay: 0.4s;"></div>
+          <div class="confetti-piece absolute w-5 h-5 bg-blue-300" style="top: -10%; left: 70%; animation-delay: 0.6s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-indigo-400" style="top: -10%; left: 30%; animation-delay: 0.8s;"></div>
+          <div class="confetti-piece absolute w-4 h-4 bg-indigo-500" style="top: -10%; left: 60%; animation-delay: 1s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-blue-400" style="top: -10%; left: 15%; animation-delay: 1.2s;"></div>
+          <div class="confetti-piece absolute w-4 h-4 bg-blue-500" style="top: -10%; left: 85%; animation-delay: 1.4s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-blue-600" style="top: -10%; left: 25%; animation-delay: 1.6s;"></div>
+          <div class="confetti-piece absolute w-5 h-5 bg-blue-300" style="top: -10%; left: 75%; animation-delay: 1.8s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-indigo-400" style="top: -10%; left: 40%; animation-delay: 2s;"></div>
+          <div class="confetti-piece absolute w-4 h-4 bg-indigo-500" style="top: -10%; left: 55%; animation-delay: 2.2s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-sky-400" style="top: -10%; left: 35%; animation-delay: 2.4s;"></div>
+          <div class="confetti-piece absolute w-5 h-5 bg-sky-500" style="top: -10%; left: 65%; animation-delay: 2.6s;"></div>
+          <div class="confetti-piece absolute w-3 h-3 bg-cyan-400" style="top: -10%; left: 45%; animation-delay: 2.8s;"></div>
+          <div class="confetti-piece absolute w-4 h-4 bg-cyan-500" style="top: -10%; left: 90%; animation-delay: 3s;"></div>
+        </div>
+        
+        <!-- Congratulations message -->
+        <div class="relative z-10 bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-16 max-w-2xl mx-4">
+          <div class="text-8xl mb-6 animate-bounce">🎉</div>
+          <h1 class="text-6xl font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-4">
+            Congratulations!
+          </h1>
+          <p class="text-3xl text-gray-700 mb-2 font-semibold">You found a perfect match!</p>
+          <p class="text-xl text-gray-600 mb-8">Csai is definitely the right choice! 🌟</p>
+          
+          <!-- YouTube music embed -->
+          <div class="mb-8">
+            <iframe 
+              width="100%" 
+              height="315" 
+              src="https://www.youtube.com/embed/YQctku46ufc?autoplay=1&mute=0" 
+              title="Celebration Music"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+              class="rounded-lg shadow-lg"
+            ></iframe>
+          </div>
+          
+          <button 
+            onclick="closeCelebration()" 
+            class="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold text-xl py-4 px-10 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  
+  main {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .confetti-piece {
+    animation: confetti-fall 4s linear infinite;
+  }
+  
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const typingText = document.getElementById('typingText');
+    const cursor = document.getElementById('cursor');
+    const startButton = document.getElementById('startButton');
+    
+    const text = "Good day! 👋 I saw that you're interested in taking this interview—and that's great! Don't worry, it's simple and fun. Just read the questions and choose the best answer from the choices provided. Ready to begin? Let's go! 🚀"
+    
+    let charIndex = 0;
+    let isTyping = true;
+    
+    function typeWriter() {
+      if (charIndex < text.length && isTyping) {
+        typingText.textContent += text.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 50); // Adjust typing speed here
+      } else if (charIndex >= text.length) {
+        cursor.style.display = 'none';
+        startButton.classList.remove('hidden');
+      }
+    }
+    
+    // Start typing animation
+    setTimeout(typeWriter, 1000); // Delay before starting
+  });
+  
+  function showQuestion() {
+    document.getElementById('introSection').classList.add('hidden');
+    document.getElementById('questionSection').classList.remove('hidden');
+  }
+  
+  function selectGab() {
+    document.getElementById('errorModal').classList.remove('hidden');
+  }
+  
+  function selectCsai() {
+    // Hide question section and show celebration
+    document.getElementById('questionSection').classList.add('hidden');
+    document.getElementById('celebration').classList.remove('hidden');
+  }
+  
+  function closeCelebration() {
+    document.getElementById('celebration').classList.add('hidden');
+    // You can add what happens after celebration ends
+    alert('Thank you for completing the interview! �');
+  }
+  
+  function closeErrorModal() {
+    document.getElementById('errorModal').classList.add('hidden');
+  }
+</script>

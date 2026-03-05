@@ -1,0 +1,84 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="A surprise for my valentine" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* 1. The Romantic Cosmic Background */
+  html {
+    font-family: system-ui, sans-serif;
+    /* Base color: Deep Burgundy/Plum (Dark enough for white text) */
+    background-color: #2a0a18;
+
+    /* Adds "nebula" glows in top corners (Hot Pink & Deep Purple) */
+    background-image:
+      radial-gradient(at 0% 0%, hsla(330, 49%, 25%, 1) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(310, 40%, 30%, 1) 0, transparent 50%);
+
+    background-attachment: fixed; /* Keeps background still while scrolling */
+    background-size: cover;
+    color: white;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  /* 2. Custom Pink Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #2a0a18;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #db2777, #9333ea); /* Pink to Purple */
+    border-radius: 6px;
+    border: 3px solid #2a0a18; /* Creates padding around the bar */
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #db2777;
+  }
+
+  /* 3. Pink Text Highlight */
+  ::selection {
+    background: rgba(219, 39, 119, 0.5); /* Pink highlight */
+    color: #fff;
+  }
+
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+</style>
